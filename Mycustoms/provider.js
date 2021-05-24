@@ -79,7 +79,7 @@ var api ={
             "Content-Type": "application/json"
           },
           type: "POST",
-          url: ""+ editedInfo.serviceId,
+          url: "http://172.105.167.182:8081/services/providers/services"+ editedInfo.serviceId,
           data: JSON.stringify(editedInfo)
         }).then(function(data) {
           console.log(window.location.href);
@@ -132,19 +132,21 @@ var handleaddProduct = function(event) {
   
     // Gathering all elements to update the registry with
     var addProduct = {
-      firstName: $("#propInputfirstName")
+      ProductName: $("#propInputProductName")
         .val()
         .trim(),
-      secondName: $("#propInputSecondName")
+      ProductDescrption: $("#propInputProductDescription")
         .val()
         .trim(),
-      email: $("#propInputEmail")
+      ProductPrice: $("#propInputProductPrice")
         .val()
         .trim(),
-      phone: $("#propInputPhone")
+      productQuantity: $("#propInputProductQuantity")
         .val()
         .trim(),
-      
+        productVariant: $("#propInputProductVariant")
+        .val()
+        .trim(),
     };
   
     // Call the update funtion and pass the updted info
