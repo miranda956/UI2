@@ -25,7 +25,7 @@ var api ={
 var handleAddProvider = function(event) {
     event.preventDefault();
   
-    
+
     var newProviderInfo = {
 
       firstName: $("#propInputFirstName")

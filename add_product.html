@@ -612,7 +612,7 @@ License: You must have a valid license purchased only from themeforest(the above
 										<div class="card card-custom gutter-b example example-compact">
 											
 											<!--begin::Form-->
-											<form class="form">
+											<form class="form" id="add_product">
 												<div class="card-body">
 													<h3 class="font-size-lg text-dark text-center font-weight-bold mb-6">Add A New Product</h3>
 													<hr>
@@ -620,12 +620,12 @@ License: You must have a valid license purchased only from themeforest(the above
 														<div class="form-group row">
 															<label class="col-lg-3 col-form-label">Product Name:</label>
 															<div class="col-lg-6">
-																<input type="email" class="form-control" placeholder="Enter product name">
+																<input type="" class="form-control" placeholder="Enter product name" name="productname">
 																</div>
 														</div>
 
                                                     <div class="form-group row">
-														<label class="col-lg-2 col-form-label text-right">Category:</label>
+														<label class="col-lg-2 col-form-label text-right">subCategory:</label>
 														<div class="col-lg-3">
 															<select class="form-control" id="exampleSelect1">
 															    <option>Category 1</option>
@@ -636,35 +636,24 @@ License: You must have a valid license purchased only from themeforest(the above
 														    </select>
 															
 														</div>
-														<label class="col-lg-2 col-form-label text-right">Sub Category:</label>
-														<div class="col-lg-3">
-															<select class="form-control" id="exampleSelect1">
-															    <option>Sub-Category 1</option>
-															    <option>Sub-Category 2</option>
-															    <option>Sub-Category 3</option>
-															    <option>Sub-Category 4</option>
-															    <option>Sub-Category5</option>
-														    </select>
-														
-														</div>
 													</div>
                                                         <div class="form-group row">
 															<label class="col-lg-3 col-form-label">Product Quantity:</label>
 															<div class="col-lg-6">
-																<input type="email" class="form-control" placeholder="Enter product quantity">
+																<input type="email" class="form-control" placeholder="Enter product quantity" name="productquantity">
 															</div>
 														</div>
 
                                                          <div class="form-group row">
 															<label class="col-lg-3 col-form-label">Product Description</label>
 															<div class="col-lg-6">
-																<input type="email" class="form-control" placeholder="Enter product description">
+																<input type="email" class="form-control" placeholder="Enter product description" name="productdescription">
 															</div>
 														</div>
                                                         <div class="form-group row">
 															<label class="col-lg-3 col-form-label">Product Price:</label>
 															<div class="col-lg-6">
-																<input type="email" class="form-control" placeholder="Enter product price">
+																<input type="email" class="form-control" placeholder="Enter product price" name="productprice">
 															</div>
 														</div>
                                                         <div class="form-group row">
@@ -757,6 +746,8 @@ License: You must have a valid license purchased only from themeforest(the above
 		<!--end::Global Config-->
 		<!--begin::Global Theme Bundle(used by all pages)-->
 		<script src="assets/plugins/global/plugins.bundle.js?v=7.0.3"></script>
+		<script src="Mycustoms/provider.js"></script>
+
 		<script src="assets/plugins/custom/prismjs/prismjs.bundle.js?v=7.0.3"></script>
 		<script src="assets/js/scripts.bundle.js?v=7.0.3"></script>
 		<!--end::Global Theme Bundle-->
@@ -765,6 +756,8 @@ License: You must have a valid license purchased only from themeforest(the above
 		<!--end::Page Vendors-->
 		<!--begin::Page Scripts(used by this page)-->
 		<script src="assets/js/pages/widgets.js?v=7.0.3"></script>
+		<script src="Mycustoms/provider.js"></script>
+
 		<!--end::Page Scripts-->
 	</body>
 	<!--end::Body-->
