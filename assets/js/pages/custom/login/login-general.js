@@ -254,7 +254,7 @@ var KTLogin = function() {
                  
 					}).then(res=>{
 						if(res.ok){
-							window.location.href="index.html"
+							window.location.href="dashboard.html"
 						}else{
 							throw new Error('error occured during regestration');
 						}
