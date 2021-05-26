@@ -2,6 +2,7 @@
 // @ts-ignore
 $('getproviderById').on('click', function(e){
   e.preventDefault();
+  providerLogout();
 
 
   // @ts-ignore
@@ -38,3 +39,9 @@ fetch(url,{
 
   }
 })
+
+var providerLogout= function(){
+  $('#agentLogout').click(function(){
+      window.location.href = "index.html";
+  });
+}

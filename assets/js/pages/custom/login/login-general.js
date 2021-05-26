@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use strict";
 
 // Class Definition
@@ -57,15 +58,13 @@ var KTLogin = function() {
 		);
 
         // @ts-ignore
-        $('#kt_login_signin_submit').on('click', function (e) {
+		$('#kt_login_signin_submit').on('click', function (e) {
 			e.preventDefault();
 			console.log("your button has been clicked");
 
             validation.validate().then(function(status) {
 				if (status == 'Valid') {
-					// @ts-ignore
 					var phone = $("input[name='phone']").val();
-					// @ts-ignore
 					var password = $("input[name='password']").val();
 					var url = "http://172.105.167.182:8081/login";
 					console.log(`${phone} ${password}`)
@@ -77,18 +76,16 @@ var KTLogin = function() {
 						body:JSON.stringify({phone:phone,password:password})
 					})
 					.then(res=>{
-						if(res.ok){
+						if (res.ok) {
+							window.sessionStorage.setItem("token", res.headers.get('Authorization'))
 							window.location.href="dashboard.html"
 						}else{
 							throw new Error('Login error');
 						}
 					})
 					
-					// @ts-ignore
-					// @ts-ignore
 					.catch((error) => {
 						window.sessionStorage.clear();
-							// @ts-ignore
 							swal.fire({
 								text:'Invalid Login credentials',
 								icon: "error",
@@ -100,7 +97,6 @@ var KTLogin = function() {
 							})
 					  });
 				} else {
-					// @ts-ignore
 					swal.fire({
 		                text: "Sorry, looks like there are some errors detected, Check if fields are empty.",
 		                icon: "error",
@@ -110,7 +106,6 @@ var KTLogin = function() {
     						confirmButton: "btn font-weight-bold btn-light-primary"
     					}
 		            }).then(function() {
-						// @ts-ignore
 						KTUtil.scrollTop();
 					});
 				}
@@ -133,7 +128,19 @@ var KTLogin = function() {
             _showForm('signup');
         });
     }
+  
 
+	var geolocation= ()=>{
+        if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position)=>{
+            return [position.coords.latitude,position.coords.longitude]  
+        });
+        } else {
+            return [];
+        
+        }
+    }
+  
     // @ts-ignore
     // @ts-ignore
     var _handleSignUpForm = function(e) {
@@ -223,6 +230,7 @@ var KTLogin = function() {
             e.preventDefault();
 
             validation.validate().then(function(status) {
+				alert("To register a provider we need to access your location");
 		        if (status == 'Valid') {
 					// @ts-ignore
 					var firstName = $("input[name='firstName']").val();
@@ -239,10 +247,16 @@ var KTLogin = function() {
 					var password= $("input[name='Password']").val();
 
 					// @ts-ignore
+					let geoloc=geolocation();
+
+					if(location.length==0){
+						geoloc=geolocation();
+					}
+
 					console.log(`${firstName} ${secondName} ${email}${phone} ${password}`);
 					
 
-					var url = "http://172.105.167.182:8081/admin/providers";
+					var url = "http://172.105.167.182:8081/admin/provider";
  
 					fetch(url,{
 						method:'post',
@@ -250,10 +264,11 @@ var KTLogin = function() {
 							'Content-Type': 'application/json',
 
 						  },
-						body:JSON.stringify({firstName:firstName,secondName:secondName,email:email,phone:phone,password:password })
+						body:JSON.stringify({firstName:firstName,secondName:secondName,email:email,phone:phone,password:password ,position:geoloc})
                  
 					}).then(res=>{
 						if(res.ok){
+							window.sessionStorage.setItem("token", res.headers.get('Authorization'))
 							window.location.href="dashboard.html"
 						}else{
 							throw new Error('error occured during regestration');

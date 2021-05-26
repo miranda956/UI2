@@ -1,96 +1,110 @@
-// @ts-ignore
-$('#add_product').on('click', function(e){
-    e.preventDefault();
-    // @ts-ignore
-    // @ts-ignore
-    var addproduct =function(){
-        // @ts-ignore
+// @ts-nocheck
 
-        var productName= $("input[name='productname']").val();
-        // @ts-ignore
-        var productDescription= $("input[name='productdescription']").val();
-        // @ts-ignore
-        var productPrice= $("input[name='productprice']").val();
-        // @ts-ignore
-        var productQuantity= $("input[name='productquantity']").val();
-        // @ts-ignore
-        var subCategory= $("input[name='subcategory']").val();
-        // @ts-ignore
-        var productVariant= $("input[name='productvariant']").val();
-        
-        // declare url
-        var url="http://173.255.195.240:8081/catalog/products";
-
-        var body =JSON.stringify({productName:productName,productDescription:productDescription, productQuantity:productQuantity, subCategory:subCategory, productVariant:productVariant, productPrice:productPrice})
-
-
-        // create submit body  element
-        // if request requires a token to be passed, get the token from session storage
-        var token=window.sessionStorage.get("token") //get according to the way ypu had named the token variable
-        //using fetch API
-        fetch(url,{     
-            method:"POST",
-            headers: {
-                 'Content-Type': 'application/json',
-                 'Authorization': `Bearer ${token}`, //remember to single space between Bearer and var token
-            },
-            body: body
-     
-        }).then((res)=>{  //fetch returns a result, check if that result is ok or has status 200
-            if(res.ok){
-                return res.json() //return a res json
-            }else{ // result has status other than 200
-     
-               throw new Error(" error occured during adding a service ")
-     
-            }
-        }).then(()=>{ //res is status ok, we pass a var user to this promise
-                
-         })
-         .catch((err)=>{
-             console.log(err.mesage); // handle the error , you can use the swal fire or alert to notify the user
-         })
-     }
+$("document").ready(() => {
+    loadSubCategories();
+    $('#uploadProduct').on('submit', function(e){
+        e.preventDefault();
+        uploadProduct();
+	})
+});
+var $add_product = $("#add_product");
+let token= window.sessionStorage.getItem("token")
+console.log(token)
+document.querySelector('#product_images_upload').addEventListener('change', event => {
+    handleImageUpload(event);
 })
+var imageUris=[];
+const handleImageUpload = event => {
+    const files = event.target.files
+    const formData = new FormData()
+    formData.append('file', files[0])
+	
+    fetch("http://172.105.167.182:8081/files/upload", {
+		method: 'POST',
+		body: formData
+	})
+    .then(response => response.json())
+    .then(data => {
+		imageUris.push(data.uri)
+	})
+    .catch(error => {
+		console.error(error)
+	})
+}
 
-// @ts-ignore
-$('updateproduct').on('click', function(e){
-    e.preventDefault();
-    
-// @ts-ignore
-var productId=document.getElementById('productId').value;
+var loadSubCategories=()=>{
+	var url="http://172.105.167.182:8081/catalog/subCategories";
+	
+	fetch(url)
+	.then(res=>res.json())
+	.then(data=>{
+		let html="";
+		data.forEach((subCategory)=>{
+			html+=`<option>${subCategory.subCategoryName}</option>`
+		})
+		document.getElementById("pSubCategory").innerHTML=html;
+		
+		}).catch(err=>{
+		console.log(err)
+	})
+	
+}
 
-// @ts-ignore
-var productName= $("input[name='productname']").val();
-        // @ts-ignore
-        var productDescription= $("input[name='productdescription']").val();
-        // @ts-ignore
-        var productPrice= $("input[name='productprice']").val();
-        // @ts-ignore
-        var productQuantity= $("input[name='productquantity']").val();
-        // @ts-ignore
-        var subCategory= $("input[name='subcategory']").val();
-        // @ts-ignore
-        var productVariant= $("input[name='productvariant']").val();
-var url="http://173.255.195.240:8081/catalog/products";+productId;
-var body =JSON.stringify({productName:productName,productDescription:productDescription, productQuantity:productQuantity, subCategory:subCategory, productVariant:productVariant, productPrice:productPrice})
+var uploadProduct=()=>{ 
+	let url = "http://172.105.167.182:8081/catalog/products"
+	var productName = $("input[name='productName']").val();
+	var productVariant = $("input[name='productVariant']").val();
+	var productQuantity = $("input[name='productQuantity']").val();
+	var productPrice = $("input[name='productPrice']").val();
+    var productDescription = document.getElementById("productDescription").value;
+    var subCategory = document.getElementById("pSubCategory").value;
+	var productProvider = $("input[name='productProvider']").val();
 
-var token=window.sessionStorage.get("token") //get according to the way ypu had named the token variable
+    console.log(imageUris)
+    var boo= JSON.stringify({productQuantity: productQuantity, productName: productName,
+        productPrice: productPrice,productProvider:productProvider, productDescription: productDescription, photos: imageUris, subCategory: subCategory, productVariant: productVariant
+    })
+         console.log(token)
+    console.log(boo);
+	fetch(url,{
+		method:'post',
+		headers: {
+            'Authorization': 'Bearer ' +token,
 
-fetch(url,{
-    method:"PATCH",
-    headers:{
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`,
- //remember to single space between Bearer and var token
-    },
-    body:body
-}).then((res)=>{
-
-})
-
-})
-
-
+			'Content-Type': 'application/json'
+		},
+		body:boo
+	})
+	.then(res=>{
+		if (res.ok) {
+          swal.fire({
+			text:'product uploaded successfully',
+			icon: "success",
+			buttonsStyling: false,
+			confirmButtonText: "Retry",
+			customClass: {
+				confirmButton: "btn font-weight-bold btn-light-primary"
+			}
+		})
+			window.location.href="add_product.html"
+			}else{
+			throw new Error('upload error');
+		}
+	})
+	
+	.catch((error) => {
+		window.sessionStorage.clear();
+		swal.fire({
+			text:'Could not upload new product',
+			icon: "error",
+			buttonsStyling: false,
+			confirmButtonText: "Retry",
+			customClass: {
+				confirmButton: "btn font-weight-bold btn-light-primary"
+			}
+		})
+	});
+	
+}
 
 
