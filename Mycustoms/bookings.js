@@ -22,12 +22,12 @@ var loadbookings =()=>{
             }
         }).then((data)=>{
             var html="";
-            data.forEach((provider)=>{
+            data.forEach((bookings)=>{
                html+=`<tr>  
-               <td>${provider.firstName} ${provider.secondName}</td>
-               <td>${provider.phone}</td>
-               <td>${provider.email}</td>
-               <td>${provider.blocked}</td>
+               <td>${bookings.firstName} ${bookings.secondName}</td>
+               <td>${bookings.phone}</td>
+               <td>${bookings.email}</td>
+               <td>${bookings.blocked}</td>
                <td nowrap="nowrap">
                              <a href="javascript:;" class="btn btn-sm btn-clean btn-icon mx-5" title="Edit details">\
 								<i class="la la-edit"></i>\

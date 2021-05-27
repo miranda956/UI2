@@ -107,4 +107,41 @@ var uploadProduct=()=>{
 	
 }
 
+var loadProductsByproviderId=()=>{
+    var url=""
+    var token=window.sessionStorage.getItem("token");
+    if(token!==""){
+        fetch(url, {
+            method:"GET",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+              },  
+        }).then(res=> {  
+
+            if(res.ok){
+                return res.json();
+            }
+            else{
+                throw new Error("A server error occurred")
+            }
+        } ).then((data)=>{ 
+            let html="";
+            data.forEach((provider)=>{
+               html+=`<tr>  
+               <td>${provider.firstName} ${provider.secondName}</td>
+               <td>${provider.phone}</td>
+               <td>${provider.email}</td>
+               <td>${provider.blocked}</td>
+               <td>Buttons</td>
+               </tr> `
+            })
+console.log(html)
+        document.getElementById("provider_table").innerHTML=html
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+    }
+}
 
