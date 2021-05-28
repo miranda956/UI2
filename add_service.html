@@ -35,8 +35,26 @@ License: You must have a valid license purchased only from themeforest(the above
 		<link href="assets/css/themes/layout/header/menu/light.css?v=7.0.3" rel="stylesheet" type="text/css" />
 		<link href="assets/css/themes/layout/brand/dark.css?v=7.0.3" rel="stylesheet" type="text/css" />
 		<link href="assets/css/themes/layout/aside/dark.css?v=7.0.3" rel="stylesheet" type="text/css" />
+		<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
 		<!--end::Layout Themes-->
 		<link rel="shortcut icon" href="assets/media/logos/favicon.ico" />
+		<style type="text/css">
+			/* Always set the map height explicitly to define the size of the div
+			* element that contains the map. */
+			#map {
+				height: 300px;
+				width: 100%;
+			}
+
+			/* Optional: Makes the sample page fill the window. */
+			html,
+			body {
+				height: 100%;
+				margin: 0;
+				padding: 0;
+			}
+			</style>
 	</head>
 	<!--end::Head-->
 	<!--begin::Body-->
@@ -548,85 +566,137 @@ License: You must have a valid license purchased only from themeforest(the above
 					<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
 					
 						<!--begin::Entry-->
-						<div class="d-flex flex-column-fluid">
-							<!--begin::Container-->
-							<div class="container">
-								<div class="row">
-                                    <div class="col-lg-2"></div>
-									<div class="col-lg-8">
-										<!--begin::Card-->
-										<div class="card card-custom gutter-b example example-compact">
-											
-											<!--begin::Form-->
-											<form class="form" id="serviceSubmit">
-												<div class="card-body">
-													<h3 class="font-size-lg text-dark font-weight-bold mb-6">Add A New Service</h3>
-													<div class="mb-15">
-														<div class="form-group row">
-															<label class="col-lg-3 col-form-label">Service Name:</label>
-															<div class="col-lg-6">
-																<input type="email" class="form-control" placeholder="Enter service name" name="name">
-																</div>
-														</div>
-														<div  class="form-group row">
-															<label class="col-lg-3 col-form-label">Description:</label>
-															<div class="col-lg-6">
-																<textarea class="form-control" id="description" required></textarea>
-																
-															</div>
-														</div>
-                                                        	
-                                                        <div class="form-group row">
-															<label class="col-lg-3 col-form-label">Service Charges:</label>
-															<div class="col-lg-6">
-																<input type="email" class="form-control" placeholder="Enter service charge" name="charges">
-															</div>
-														</div>
-														<div class="form-group row">
-															<label class="col-lg-3 col-form-label">subCategory</label>
-															<div class="col-lg-6">
-																<input type="email" class="form-control" placeholder="Enter subcategory" name="subcategory">
-															</div>
-														</div>
-														
-                                                        <div class="form-group row">
-												            <label class="col-lg-3 col-form-label">Service Image</label>
-												                <div class="col-lg-9 col-xl-6">
-                    								                <div class="image-input-wrapper"></div>
-															    <input type="file" id="services_images_upload"name="profile_avatar" accept=".png, .jpg, .jpeg" multiple>
-																												
-													    </div>
-												
-											</>
+						<!--begin::Entry-->
+					<div class="d-flex flex-column-fluid">
+						<!--begin::Container-->
+						<div class="container">
+							<div class="row">
+								<div class="col-lg-1"></div>
+								<div class="col-lg-10">
+									<!--begin::Card-->
+									<div class="card card-custom gutter-b example example-compact">
+										
+										<!--begin::Form-->
+										<form class="form" id="uploadService">
+											<div class="card-body">
+												<h3 class="font-size-lg text-dark text-center font-weight-bold mb-6">Add A New Service</h3>
+												<hr>
+												<div class="mb-15">
 
-
-                                                        
+													<div class="form-group row">
+														<label class="col-lg-3 col-form-label">Service Name:</label>
+														<div class="col-lg-6">
+															<input type="text" name="sName" class="form-control" placeholder="Enter service name">
+														</div>
 													</div>
 													
-												
-													<!--end: Code-->
-												</div>
-												<div class="card-footer">
-													<div class="row">
-														<div class="col-lg-3"></div>
+													<div class="form-group row">
+														<label class="col-lg-3 col-form-label">Service Description:</label>
 														<div class="col-lg-6">
-															<button  id ="serviceSubmit" type="reset" class="btn btn-success mr-2">Submit</button>
-															<button type="reset" class="btn btn-secondary">Cancel</button>
+															<textarea name="sDescription" id="sDescription" placeholder="Service description" class="form-control"></textarea>
 														</div>
 													</div>
+													<div class="form-group row">
+														<label class="col-lg-3 col-form-label">Service Charge:</label>
+														<div class="col-lg-6">
+															<input type="number" name="sCharge" class="form-control" placeholder="Enter service charge">
+														</div>
+													</div>
+													<div class="form-group row">
+														<label class="col-lg-3 col-form-label"> phone:</label>
+														<div class="col-lg-6">
+															<input type="tel" name="sPhone" class="form-control" placeholder="Enter provider phone">
+														</div>
+													</div>
+													<div  class="form-group row">
+														<label class="col-lg-3 col-form-label">Sub Category:</label>
+														<div class="col-lg-3">
+															<select class="form-control" id="sSubCategory">
+															</select>
+															
+														</div>
+													</div>                                                   
+													<div class="form-group row">
+														<label class="col-lg-3 col-form-label">Service Image</label>
+														<div class="col-lg-9 col-xl-6">
+															<div class="image-input-wrapper"></div>
+															<input type="file" id="service_images_upload" name="service_images" accept=".png, .jpg, .jpeg" multiple>													
+														</div>
+													</div>
+													<h3 class="font-size-lg text-dark text-center font-weight-bold mb-7 mt-7">Service Provider location</h3>
+												    <hr>
+													<div id="map"></div>
+													<script>
+														function initMap() {
+															const myLatlng = { lat: -1.286389, lng: 36.817223 };
+															const map = new google.maps.Map(document.getElementById("map"), {
+															zoom: 8,
+															center: myLatlng,
+															});
+															// Create the initial InfoWindow.
+															let infoWindow = new google.maps.InfoWindow({
+															content: "Click on the map to get the location",
+															position: myLatlng,
+															});
+															infoWindow.open(map);
+															// Configure the click listener.
+															map.addListener("click", (mapsMouseEvent) => {
+
+															// Close the current InfoWindow.
+															infoWindow.close();
+															// Create a new InfoWindow.
+															infoWindow = new google.maps.InfoWindow({
+																position: mapsMouseEvent.latLng,
+															});
+															infoWindow.setContent(
+																JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
+															);
+															infoWindow.open(map);
+															var latitude = mapsMouseEvent.latLng.lat();
+															var longitude = mapsMouseEvent.latLng.lng();
+															document.getElementById('sLatitude').value=`${latitude}`; 
+															document.getElementById('sLongitude').value=`${longitude}` ;
+															});
+														}
+													</script>
+												<script
+												src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfHNyQBWNRMJ3cRia5eA2dX-JFZq3uHlA&callback=initMap&libraries=&v=weekly"
+												async
+												></script>
+
+												<div class="form-group row mt-5">
+													<label class="col-lg-3 col-form-label">Latitude</label>
+													<div class="col-lg-6">
+														<input type="text" id="sLatitude" class="form-control" placeholder="Selected Latitude" readonly required>
+													</div>
 												</div>
-											</form>
-											<!--end::Form-->
-										</div>
-										<!--end::Card-->
-										
+												<div class="form-group row mt-5">
+													<label class="col-lg-3 col-form-label">Longitude</label>
+													<div class="col-lg-6">
+														<input type="text" id="sLongitude" class="form-control" placeholder="Selected Longitude" readonly required>
+													</div>
+												</div>
+												</div>
+											</div>
+											<div class="card-footer">
+												<div class="row">
+													<div class="col-lg-3"></div>
+													<div class="col-lg-6">
+														<button type="submit" class="btn btn-success mr-2" id="servSubmit">Submit</button>
+														<button type="reset" class="btn btn-secondary">Cancel</button>
+													</div>
+												</div>
+											</div>
+										</form>
+										<!--end::Form-->
 									</div>
-
-
+									<!--end::Card-->
 								</div>
+								
 							</div>
-							<!--end::Container-->
 						</div>
+						<!--end::Container-->
+					</div>
 						<!--end::Entry-->
 					</div>
 					<!--end::Content-->

@@ -88,13 +88,10 @@ var KTLogin = function() {
 					})
 					// @ts-ignore
 					.then(res=>{
-						//window.sessionStorage.setItem("phone",phone)
-						//console.log("just any text");
-							
-							//window.sessionStorage.setItem('token',res.authenticationToken);
-							//window.sessionStorage.setItem('firstname',res.firstName);
-							//console.log(res.headers.get("Authorisation"));
-							window.location.href="login-1.html"
+						window.sessionStorage.setItem("phone",phone)
+						window.sessionStorage.setItem('token',res.headers.get("Authorization"));
+	
+						window.location.href="login-1.html"
 						
 					})
 					// @ts-ignore

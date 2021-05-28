@@ -11,7 +11,6 @@ $('change_password').on('click',function(e){
         headers:{
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`, //remember to single space between Bearer and var token
-
         }
     })
 

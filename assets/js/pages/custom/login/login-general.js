@@ -77,6 +77,8 @@ var KTLogin = function() {
 					})
 					.then(res=>{
 						if (res.ok) {
+							window.sessionStorage.setItem("phone",phone)
+							window.location.href="login-1.html"
 							window.sessionStorage.setItem("token", res.headers.get('Authorization'))
 							window.location.href="dashboard.html"
 						}else{

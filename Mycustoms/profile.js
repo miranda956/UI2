@@ -1,6 +1,8 @@
 // @ts-nocheck
 $("document").ready(() => {
   loadMyprofile();
+  providerLogout();
+
 
 });
 
@@ -30,9 +32,9 @@ var loadMyprofile =()=>{
          res.forEach(b => {
           html+=`<tr>
           <td>${b.userId} </td>
-          <td>${new Date(b.date)}</td>
-          <td>${b.hour}</td>
-          <td>${b.cancelled? `Active`:`Cancelled`}</td>
+          <td>${b}</td>
+          <td>${b.}</td>
+          <td>${b}</td>
           <td nowrap="nowrap">
                             <a href="javascript:;" class="btn btn-sm btn-clean btn-icon mx-5" title="Edit details">\
                                <i class="la la-edit"></i>\
@@ -50,3 +52,8 @@ var loadMyprofile =()=>{
           console.log(err);
       })
 }
+var providerLogout= function(){
+    $('#providerlogout').click(function(){
+        window.location.href = "index.html";
+    });
+  }

@@ -7,7 +7,7 @@ $("document").ready(() => {
 
 var loadMyservices =()=>{
     
-    var url="http://172.105.167.182:8081/services/users/sll"
+    var url="http://172.105.167.182:8081/services/users/all"
     var token = window.sessionStorage.getItem("token");
     var html=``;
     // console.log(token)
@@ -29,10 +29,10 @@ var loadMyservices =()=>{
         .then((res)=>{ 
            res.forEach(b => {
             html+=`<tr>
-            <td>${b.userId} </td>
-            <td>${new Date(b.date)}</td>
-            <td>${b.hour}</td>
-            <td>${b.cancelled? `Active`:`Cancelled`}</td>
+            <td>${b.id} </td>
+            <td>${b.name}</td>
+            <td>${b.description}</td>
+            <td>${b.charges}</td>
             <td nowrap="nowrap">
                               <a href="javascript:;" class="btn btn-sm btn-clean btn-icon mx-5" title="Edit details">\
                                  <i class="la la-edit"></i>\
